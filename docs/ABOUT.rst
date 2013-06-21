@@ -121,4 +121,9 @@ showing the ATO overview info and a list of ATOControlDetail folders
 linked to that ATO.
 
 
+Pre-configure option
+=======================
+I'd likely create a "profile" that would pre-configure
+family groupings and controls based on the 800-53 outline.
+
 
