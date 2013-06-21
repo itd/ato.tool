@@ -34,7 +34,7 @@ About how the tool organizes information
 
 - In theory, those groupings would be added to map roughly to
   coordinate with the NIST 800-53 controls. Although, it could
-  be used to manage any set of security controls or groupings
+  be used to manage any set of security control frameworks
   such as ISO/IEC 27001 AND 15408.
 
 - Each control in this tool may have the following properties:
