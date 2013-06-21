@@ -125,5 +125,7 @@ Pre-configure option
 =======================
 I'd likely create a "profile" that would pre-configure
 family groupings and controls based on the 800-53 outline.
-
+Once one is created, creating a profile for updated revisions
+or even other frameworks such as ISO/IEC 27001 should be doable
+by others in the community.
 
