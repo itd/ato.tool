@@ -8,4 +8,8 @@
   -->
 <object name="portal_types" meta_type="Plone Types Tool">
   <!-- -*- extra stuff goes here -*- -->
+  <object name="ato.tool.reviewevent" meta_type="Dexterity FTI" />
+  <object name="ato.tool.compliancecontrol" meta_type="Dexterity FTI" />
+  <object name="ato.tool.compliancefamily" meta_type="Dexterity FTI" />
+  <object name="ato.tool.compliancetracker" meta_type="Dexterity FTI" />
 </object>

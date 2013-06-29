@@ -52,6 +52,38 @@ def test_suite():
 
         # -*- extra stuff goes here -*-
 
+        # Integration tests for ATOEvent
+        ztc.ZopeDocFileSuite(
+            'ReviewEvent.txt',
+            package='ato.tool',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ComplianceControl
+        ztc.ZopeDocFileSuite(
+            'ComplianceControl.txt',
+            package='ato.tool',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ComplianceFamily
+        ztc.ZopeDocFileSuite(
+            'ComplianceFamily.txt',
+            package='ato.tool',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ComplianceTracker
+        ztc.ZopeDocFileSuite(
+            'ComplianceTracker.txt',
+            package='ato.tool',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
         ])
 
 if __name__ == '__main__':

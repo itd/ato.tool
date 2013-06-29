@@ -94,13 +94,13 @@ Content Types overview for the tool
 **ComplianceControl**
  A specific control
 
-**ATOEvent**
- Describes a specific ATO event.
- A tracker may have one or more ATOEvents.
+**ReviewEvent**
+ Describes a specific ATO or review event.
+ A tracker may have one or more ReviewEvents.
 
-**ATOControlDetail**
+**ControlReviewDetail**
  | A folderish type
- | Optionally addable in a ComplianceControl and linked to an ATOEvent
+ | Optionally addable in a ComplianceControl and linked to a ReviewEvent
    if data is required to be collected for an ATO event for that control.
  | Has a "Details" field.
  | Can contain artifacts [page, file, or image]
