@@ -28,13 +28,27 @@ class IComplianceTracker(form.Schema, IImageScaleTraversable):
     Master container for a compliance tracker
     """
 
+    title = schema.TextLine(
+            title=_(u"Compliance Tracker Title"),
+        )
+
+    description = schema.Text(
+            title=_(u"Brief summary of this tracker"),
+        )
+
+    details = RichText(
+            title=_(u"Tracker Details"),
+            description=_(u"Longer form overview of this tracker"),
+            required=False,
+        )
+
     # If you want a schema-defined interface, delete the form.model
     # line below and delete the matching file in the models sub-directory.
     # If you want a model-based interface, edit
     # models/compliancetracker.xml to define the content type
     # and add directives here as necessary.
 
-    form.model("models/compliancetracker.xml")
+    #form.model("models/compliancetracker.xml")
 
 
 # Custom content-type class; objects created for this content type will
@@ -62,4 +76,4 @@ class SampleView(grok.View):
     grok.context(IComplianceTracker)
     grok.require('zope2.View')
 
-    # grok.name('view')
+    grok.name('view')

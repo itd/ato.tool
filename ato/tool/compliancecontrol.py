@@ -26,15 +26,63 @@ from ato.tool import MessageFactory as _
 class IComplianceControl(form.Schema, IImageScaleTraversable):
     """
     A specific security control
-    """
 
-    # If you want a schema-defined interface, delete the form.model
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/compliancecontrol.xml to define the content type
-    # and add directives here as necessary.
+    Each control in this tool may have the following properties:
 
-    form.model("models/compliancecontrol.xml")
+    * Title or Control ID - title (can be same as 800-53 control title)
+    * 800-53 - Referenced 800-53 control & Title (AC-3 Access enforcement)
+    * Control definition - the control definition
+      (could be NIST 800-53 reference, PSP reference, etc.)
+    * Supplemental control information
+    * Policy - Description. May include min baseline standards,
+      links to policy document(s), or references to policy document(s).
+    * Deviation - deviations from controls with justifications
+    * Gap - Is there a known gap? What is it? Justification?
+    * Work Instruction - link to work instruction, how to, Config scripts, etc.
+    * ATO response/todo instructions per period, e.g., 2013.
+    * artifacts for that period - 0 or more files
+    * Priority (low, moderate, high)
+
+    Note: Only including a sub-set of these for my current needs.
+
+     """
+    title = schema.TextLine(
+        title=_(u"Control title or ID"),
+        required=True,
+    )
+
+    description = schema.Text(
+        title=_(u"Brief description"),
+        required=False,
+    )
+
+    controlref = schema.Text(
+        title=_(u"Control Reference"),
+        description=_(u"""Referenced Control & Title.
+                      Example: (AC-3 Access enforcement)"""),
+        required=False,
+    )
+
+    policy = RichText(
+        title=_(u"Policy"),
+        description=_(u"""Details about our policy for this control.
+            Include links where appropriate."""),
+        required=False,
+    )
+
+    deviation = RichText(
+        title=_(u"Deviation"),
+        description=_(u"""Are there deviations from the controls?
+            Known gaps? enter details with justifications where
+            appropriate."""),
+        required=False,
+    )
+
+    workinstruction = schema.TextLine(
+        title=_(u"Work Instruction"),
+        description=_(u"Link/URL to work instruction."),
+        required=False,
+    )
 
 
 # Custom content-type class; objects created for this content type will
@@ -62,4 +110,4 @@ class SampleView(grok.View):
     grok.context(IComplianceControl)
     grok.require('zope2.View')
 
-    # grok.name('view')
+    grok.name('view')

@@ -28,13 +28,31 @@ class IComplianceFamily(form.Schema, IImageScaleTraversable):
     A grouping of compliance controls
     """
 
+    title = schema.TextLine(
+        title=_(u"Control family name"),
+        required=True,
+    )
+
+    description = schema.Text(
+        title=_(u"Brief description"),
+        required=False,
+    )
+
+    details = RichText(
+        title=_(u"Details"),
+        description=_(u"""Details about our policy for this control.
+            Include links where appropriate."""),
+        required=False,
+    )
+
+
     # If you want a schema-defined interface, delete the form.model
     # line below and delete the matching file in the models sub-directory.
     # If you want a model-based interface, edit
     # models/compliancefamily.xml to define the content type
     # and add directives here as necessary.
 
-    form.model("models/compliancefamily.xml")
+    # form.model("models/compliancefamily.xml")
 
 
 # Custom content-type class; objects created for this content type will
@@ -62,4 +80,4 @@ class SampleView(grok.View):
     grok.context(IComplianceFamily)
     grok.require('zope2.View')
 
-    # grok.name('view')
+    grok.name('view')
