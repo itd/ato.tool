@@ -106,8 +106,8 @@ class ComplianceControl(dexterity.Container):
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
 
-class SampleView(grok.View):
+class ComplianceView(grok.View):
     grok.context(IComplianceControl)
     grok.require('zope2.View')
 
-    grok.name('view')
+    grok.name('complianceview')
