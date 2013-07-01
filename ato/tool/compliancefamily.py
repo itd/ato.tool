@@ -38,10 +38,11 @@ class IComplianceFamily(form.Schema, IImageScaleTraversable):
         required=False,
     )
 
-    details = RichText(
-        title=_(u"Details"),
-        description=_(u"""Details about our policy for this control.
-            Include links where appropriate."""),
+    info = RichText(
+        title=_(u"Supporting Info"),
+        description=_(u"""List any high-level issues regarding
+            this control. Include links and references to other
+            documents if appropriate."""),
         required=False,
     )
 

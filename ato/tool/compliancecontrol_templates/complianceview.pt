@@ -27,11 +27,11 @@
       <div tal:content="context/description">[[description]]</div>
     </div>
 
-    <div class="descriptionWrapper">
+    <div class="detailsWrapper">
       <h3>Details</h3>
 
       <div class="docDetails"
-           tal:content="context/details">[[details]]
+           tal:content="context/details/output">[[details]]
       </div>
     </div>
 
@@ -45,13 +45,17 @@
     <div class="policyWrapper">
       <h3>Policy</h3>
 
-      <div tal:content="context/policy">[[our policy details here]]</div>
+      <div tal:content="structure context/policy/output">
+        [[our policy details here]]
+      </div>
     </div>
 
     <div class="deviationWrapper">
       <h3>Deviation</h3>
 
-      <div tal:content="context/deviation">[[deviation details here]]</div>
+      <div tal:content="structure context/deviation/output">
+        [[deviation details here]]
+      </div>
     </div>
 
     <div class="workinstructionWrapper">
@@ -63,6 +67,7 @@
             [[URL/link to work instruction]]</span></a>
       </div>
     </div>
+
 
 
   </metal:content-core>

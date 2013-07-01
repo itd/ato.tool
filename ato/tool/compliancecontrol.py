@@ -63,6 +63,8 @@ class IComplianceControl(form.Schema, IImageScaleTraversable):
         required=False,
     )
 
+    #Priority (low, moderate, high)
+
     policy = RichText(
         title=_(u"Policy"),
         description=_(u"""Details about our policy for this control.

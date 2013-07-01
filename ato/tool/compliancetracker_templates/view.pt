@@ -13,9 +13,6 @@
     <tal:comment tal:condition="nothing">
       Rendered from
       compliancetracker_templates/<span tal:replace="template/id"/>
-    </tal:comment>
-
-
     <h2 class=".documentFirstTitle"
         tal:content="context/Title">[[Title inserted here]]</h2>
 
@@ -25,11 +22,15 @@
       <div tal:content="context/description">[[description]]</div>
     </div>
 
+    </tal:comment>
+
     <div class="descriptionWrapper">
+
       <h3>Details</h3>
 
       <div class="docDetails"
-           tal:content="context/details">[[details]]
+           tal:content="structure context/details/output">
+        [[details]]
       </div>
     </div>
 

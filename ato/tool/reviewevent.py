@@ -28,19 +28,14 @@ class IReviewEvent(form.Schema, IImageScaleTraversable):
     A specific ATO review event
     """
 
-    # If you want a schema-defined interface, delete the form.model
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/reviewevent.xml to define the content type
-    # and add directives here as necessary.
-
-    form.model("models/reviewevent.xml")
+    details = RichText(
+        title=_(u"Review Event Details"),
+        description=_(u"Info about this specific review event."),
+        required=False,
+    )
 
 
-# Custom content-type class; objects created for this content type will
-# be instances of this class. Use this class to add content-type specific
-# methods and properties. Put methods that are mainly useful for rendering
-# in separate view classes.
+
 
 class ReviewEvent(dexterity.Container):
     grok.implements(IReviewEvent)
@@ -58,8 +53,8 @@ class ReviewEvent(dexterity.Container):
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
 
-class SampleView(grok.View):
+class View(grok.View):
     grok.context(IReviewEvent)
     grok.require('zope2.View')
 
-    # grok.name('view')
+    grok.name('view')
