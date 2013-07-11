@@ -18,6 +18,8 @@ class ComplianceFamilyVocabulary(object):
                 )
         terms = []
 
+        import pdb; pdb.set_trace()
+
         if brains is not None:
             for ob in brains:
                 terms.append(SimpleVocabulary.createTerm(ob.id, ob.Title))
