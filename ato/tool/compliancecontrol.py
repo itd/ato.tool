@@ -18,6 +18,7 @@ from plone.app.textfield import RichText
 from z3c.relationfield.schema import RelationList, RelationChoice
 from plone.formwidget.contenttree import ObjPathSourceBinder
 
+from .vocabulary import ControlPriorityVocab
 from ato.tool import MessageFactory as _
 
 
@@ -63,7 +64,21 @@ class IComplianceControl(form.Schema, IImageScaleTraversable):
         required=False,
     )
 
-    #Priority (low, moderate, high)
+    controlinfo = RichText(
+        title=_(u"Control detail"),
+        description=_(u"""Optionally include the detailed description
+            from the referenced control."""),
+        required=False,
+    )
+
+
+    #Priority (low, moderate, high) ato.tool.ControlPriorities
+    controlpriority = schema.Choice(
+        title=_(u"Priority"),
+        description=_(u"The priority of the referenced control."),
+        vocabulary=ControlPriorityVocab,
+        # default=u"1"
+    )
 
     policy = RichText(
         title=_(u"Policy"),
