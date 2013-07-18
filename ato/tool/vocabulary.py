@@ -26,10 +26,19 @@ from ato.tool import MessageFactory as _
 #         return SimpleVocabulary(terms)
 
 
-ControlPriorityVocab = SimpleVocabulary(
-            [SimpleTerm(value=u'1', title=_(u'Low')),
+ControlBaselineVocab = SimpleVocabulary(
+            [SimpleTerm(value=u'0', title=_(u'Not Selected')),
+             SimpleTerm(value=u'1', title=_(u'Low')),
              SimpleTerm(value=u'2', title=_(u'Moderate')),
-             SimpleTerm(value=u'3', title=_(u'High'))])
+             SimpleTerm(value=u'3', title=_(u'High'))
+             ])
+
+ControlPriorityVocab = SimpleVocabulary(
+            [SimpleTerm(value=u'0', title=_(u'P0')),
+             SimpleTerm(value=u'1', title=_(u'P1')),
+             SimpleTerm(value=u'2', title=_(u'P2')),
+             SimpleTerm(value=u'3', title=_(u'P3'))
+             ])
 
 # how about using the Configuration Registry instead?
 

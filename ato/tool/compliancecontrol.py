@@ -19,6 +19,8 @@ from z3c.relationfield.schema import RelationList, RelationChoice
 from plone.formwidget.contenttree import ObjPathSourceBinder
 
 from .vocabulary import ControlPriorityVocab
+from .vocabulary import ControlBaselineVocab
+
 from ato.tool import MessageFactory as _
 
 
@@ -42,8 +44,8 @@ class IComplianceControl(form.Schema, IImageScaleTraversable):
     * Work Instruction - link to work instruction, how to, Config scripts, etc.
     * ATO response/todo instructions per period, e.g., 2013.
     * artifacts for that period - 0 or more files
-    * Priority (low, moderate, high)
-
+    * baselines [low, moderate, high]
+    * priority [0,1,2,3]
     Note: Only including a sub-set of these for my current needs.
 
      """
@@ -71,13 +73,24 @@ class IComplianceControl(form.Schema, IImageScaleTraversable):
         required=False,
     )
 
-
-    #Priority (low, moderate, high) ato.tool.ControlPriorities
+    #Priority [P0 - P3]
     controlpriority = schema.Choice(
         title=_(u"Priority"),
-        description=_(u"The priority of the referenced control."),
+        description=_(u"""The priority of the referenced control.
+        A Priority Code 1 [P1] control has a higher priority for
+        implementation than a Priority Code 2 [P2] control."""),
         vocabulary=ControlPriorityVocab,
         # default=u"1"
+    )
+
+    #(low, moderate, high)
+    controlbaseline = schema.Choice(
+        title=_(u"Control Baseline"),
+        description=_(u"""The priority of the referenced control.
+        A Priority Code 1 [P1] control has a higher priority for
+        implementation than a Priority Code 2 [P2] control."""),
+        vocabulary=ControlBaselineVocab,
+        default=u"0"
     )
 
     policy = RichText(
