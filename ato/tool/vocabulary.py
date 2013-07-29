@@ -27,17 +27,24 @@ from ato.tool import MessageFactory as _
 
 
 ControlBaselineVocab = SimpleVocabulary(
-            [SimpleTerm(value=u'0', title=_(u'Not Selected')),
-             SimpleTerm(value=u'1', title=_(u'Low')),
-             SimpleTerm(value=u'2', title=_(u'Moderate')),
-             SimpleTerm(value=u'3', title=_(u'High'))
+            [SimpleTerm(value=0, title=_(u'Not Selected')),
+             SimpleTerm(value=1, title=_(u'Low')),
+             SimpleTerm(value=2, title=_(u'Moderate')),
+             SimpleTerm(value=3, title=_(u'High'))
              ])
 
 ControlPriorityVocab = SimpleVocabulary(
-            [SimpleTerm(value=u'0', title=_(u'P0')),
-             SimpleTerm(value=u'1', title=_(u'P1')),
-             SimpleTerm(value=u'2', title=_(u'P2')),
-             SimpleTerm(value=u'3', title=_(u'P3'))
+            [SimpleTerm(value=0, title=_(u'P0')),
+             SimpleTerm(value=1, title=_(u'P1')),
+             SimpleTerm(value=2, title=_(u'P2')),
+             SimpleTerm(value=3, title=_(u'P3'))
+             ])
+
+ControlTypeVocab  = SimpleVocabulary(
+            [SimpleTerm(value=u'MC', title=_(u'Management Control')),
+             SimpleTerm(value=u'OC', title=_(u'Operational Control')),
+             SimpleTerm(value=u'TC', title=_(u'Technical Control')),
+             SimpleTerm(value=u'none', title=_(u'- None Selected -')),
              ])
 
 # how about using the Configuration Registry instead?

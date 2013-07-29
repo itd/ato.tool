@@ -20,6 +20,7 @@ from plone.formwidget.contenttree import ObjPathSourceBinder
 
 from ato.tool import MessageFactory as _
 
+from ato.tool.vocabulary import ControlTypeVocab
 
 # Interface class; used to define content-type schema.
 
@@ -28,15 +29,15 @@ class IComplianceFamily(form.Schema, IImageScaleTraversable):
     A grouping of compliance controls
     """
 
-    title = schema.TextLine(
-        title=_(u"Control family name"),
-        required=True,
-    )
-
-    description = schema.Text(
-        title=_(u"Brief description"),
-        required=False,
-    )
+    # title = schema.TextLine(
+    #     title=_(u"Control family name"),
+    #     required=True,
+    # )
+    #
+    # description = schema.Text(
+    #     title=_(u"Brief description"),
+    #     required=False,
+    # )
 
     info = RichText(
         title=_(u"Supporting Info"),
@@ -44,6 +45,13 @@ class IComplianceFamily(form.Schema, IImageScaleTraversable):
             this control. Include links and references to other
             documents if appropriate."""),
         required=False,
+    )
+
+    controltype = schema.Choice(
+        title=_(u"Control Type"),
+        description=_(u"""."""),
+        vocabulary=ControlTypeVocab,
+        default=u"none"
     )
 
 

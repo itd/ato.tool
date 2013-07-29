@@ -18,9 +18,10 @@ from plone.app.textfield import RichText
 from z3c.relationfield.schema import RelationList, RelationChoice
 from plone.formwidget.contenttree import ObjPathSourceBinder
 
-from .vocabulary import ControlPriorityVocab
-from .vocabulary import ControlBaselineVocab
+from ato.tool.vocabulary import ControlPriorityVocab
+from ato.tool.vocabulary import ControlBaselineVocab
 
+from ato.tool.compliancefamily import IComplianceFamily
 from ato.tool import MessageFactory as _
 
 
@@ -49,15 +50,15 @@ class IComplianceControl(form.Schema, IImageScaleTraversable):
     Note: Only including a sub-set of these for my current needs.
 
      """
-    title = schema.TextLine(
-        title=_(u"Control title or ID"),
-        required=True,
-    )
-
-    description = schema.Text(
-        title=_(u"Brief description"),
-        required=False,
-    )
+    # title = schema.TextLine(
+    #     title=_(u"Control title or ID"),
+    #     required=True,
+    # )
+    #
+    # description = schema.Text(
+    #     title=_(u"Brief description"),
+    #     required=False,
+    # )
 
     controlref = schema.Text(
         title=_(u"Control Reference"),
@@ -80,7 +81,7 @@ class IComplianceControl(form.Schema, IImageScaleTraversable):
         A Priority Code 1 [P1] control has a higher priority for
         implementation than a Priority Code 2 [P2] control."""),
         vocabulary=ControlPriorityVocab,
-        # default=u"1"
+        default=0
     )
 
     #(low, moderate, high)
@@ -90,7 +91,7 @@ class IComplianceControl(form.Schema, IImageScaleTraversable):
         A Priority Code 1 [P1] control has a higher priority for
         implementation than a Priority Code 2 [P2] control."""),
         vocabulary=ControlBaselineVocab,
-        default=u"0"
+        default=0
     )
 
     policy = RichText(
@@ -112,6 +113,19 @@ class IComplianceControl(form.Schema, IImageScaleTraversable):
         title=_(u"Work Instruction"),
         description=_(u"Link/URL to work instruction."),
         required=False,
+    )
+
+    compliancefamily = RelationList(
+        title=_(u"Compliance Family/Class"),
+        description=_(u"""To what organizational
+            Compliance Family does this control belong?"""),
+
+        value_type=RelationChoice(
+            source=ObjPathSourceBinder(
+                object_provides=IComplianceFamily.__identifier__
+            ),
+        ),
+        required=True,
     )
 
 

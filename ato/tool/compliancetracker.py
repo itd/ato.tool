@@ -28,14 +28,15 @@ class IComplianceTracker(form.Schema, IImageScaleTraversable):
     Master container for a compliance tracker
     """
 
-    title = schema.TextLine(
-        title=_(u"Compliance Tracker Title"),
-
-    )
-
-    description = schema.Text(
-        title=_(u"Brief summary of this tracker"),
-    )
+    # title = schema.TextLine(
+    #     title=_(u"Title"),
+    #     description=_(u"Compliance Tracker Title")
+    # )
+    #
+    # description = schema.Text(
+    #     title=_(u"Description"),
+    #     description=_("Brief summary of this tracker")
+    # )
 
     details = RichText(
         title=_(u"Tracker Details"),
@@ -43,6 +44,12 @@ class IComplianceTracker(form.Schema, IImageScaleTraversable):
         required=False,
     )
 
+    neftimport = schema.Bool(
+        title=_(u"Imported"),
+        description=_(u"If set to true, NIST 800 53 content "
+            "will attempt to be imported"),
+        default=False,
+    )
 class ComplianceTracker(dexterity.Container):
     grok.implements(IComplianceTracker)
 
