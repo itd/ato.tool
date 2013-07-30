@@ -125,7 +125,7 @@ class IComplianceControl(form.Schema, IImageScaleTraversable):
                 object_provides=IComplianceFamily.__identifier__
             ),
         ),
-        required=True,
+        required=False,
     )
 
 

@@ -2,7 +2,7 @@
 <import-steps>
   <import-step id="ato_tool_builder"
     version="001"
-    handler="ato.tool.setuphandlers.importInitial"
-    title="ato.tool 800-53 setup">
+    handler="ato.tool.setuphandlers.importATOContent"
+    title="ato.tool 800-53 content setup and import">
     </import-step>
 </import-steps>
