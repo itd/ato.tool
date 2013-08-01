@@ -9,10 +9,6 @@ from zope.interface import invariant, Invalid
 
 from z3c.form import group, field
 
-from plone.namedfile.interfaces import IImageScaleTraversable
-from plone.namedfile.field import NamedImage, NamedFile
-from plone.namedfile.field import NamedBlobImage, NamedBlobFile
-
 from plone.app.textfield import RichText
 
 from z3c.relationfield.schema import RelationList, RelationChoice
@@ -24,7 +20,7 @@ from ato.tool.vocabulary import ControlTypeVocab
 
 # Interface class; used to define content-type schema.
 
-class IComplianceFamily(form.Schema, IImageScaleTraversable):
+class IComplianceFamily(form.Schema):
     """
     A grouping of compliance controls
     """
@@ -90,3 +86,6 @@ class View(grok.View):
     grok.require('zope2.View')
 
     grok.name('view')
+#
+#     def getControlTypeVocab(self):
+#         import pdb; pdb.set_trace()

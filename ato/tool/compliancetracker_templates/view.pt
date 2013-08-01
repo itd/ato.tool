@@ -29,7 +29,7 @@
       <h3>Details</h3>
 
       <div class="docDetails"
-           tal:content="structure context/details/output">
+           tal:content="structure context/details/raw">
         [[details]]
       </div>
     </div>

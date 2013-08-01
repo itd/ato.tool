@@ -32,6 +32,14 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:registerProfile
+      name="builder"
+      title="ATO Content Insertion tool"
+      directory="profiles/builder"
+      description="Inserts ATO tracking tool content"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
   <!-- -*- extra stuff goes here -*- -->
 
 </configure>

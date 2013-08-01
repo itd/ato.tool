@@ -1,3 +1,4 @@
+import os
 import csv
 import transaction
 import logging
@@ -11,7 +12,7 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import normalizeString
 from Products.CMFPlone.utils import _createObjectByType
-
+from .vocabulary import ControlTypeVocab
 import ato.tool
 
 logger = logging.getLogger(__name__)
@@ -20,13 +21,21 @@ logger.setLevel(logging.DEBUG)
 CSVROOT = "import_data"
 ATO_FOLDER = 'ato'
 
+# get import files
+curdir = os.path.dirname(__file__)
+curdir = curdir +'/import_data/'
+CONTROLS = open(curdir + 'SP800_53_controls.csv', 'rU')
+CONTROL_TYPES = open(curdir + 'SP800_53_control_types.csv', 'rU')
+CONTROL_FAMILIES = open(curdir + 'SP800_53_comp_family_classes.csv', 'rU')
+
 
 def createComplianceTracker(portal):
     logger.info('START: create Compliance Tracker')
     container = portal
     ids = portal.objectIds()
+    #ato.tool.compliancetracker (ComplianceTracker)
     if ATO_FOLDER not in ids: #ato.tool.compliancetracker
-        _createObjectByType('ComplianceTracker', container,
+        _createObjectByType('ato.tool.compliancetracker', container,
                             id=ATO_FOLDER, title='ATO Compliance Tracker',
                             description="Track the organization's cyber "
                             "security compliance.")
@@ -42,11 +51,10 @@ def createComplianceTracker(portal):
 def createComplianceFamilyFolders(portal):
     logger.info('>> START: create Compliance Family Folders')
     container = portal[ATO_FOLDER]
-    ids = container.objectIds()
     norm = getUtility(IIDNormalizer)
 
-    dat = ato.tool.import_data.SP800_53_compliance_family_classes.csv
-    dat = open(dat, 'rb')
+    dat = CONTROL_FAMILIES
+    #dat = open(dat, 'rb')
     reader = csv.DictReader(dat)
     #headers = reader.fieldnames # ['ControlType', 'ControlClass', 'ClassName']
     for row in reader:
@@ -61,11 +69,15 @@ def createComplianceFamilyFolders(portal):
             objtitle = "%s, %s" % (objid, objtitle)
             objid = norm.normalize(objid)
             logger.info(' -- creating %s' % objid)
-            if not container[objid]:
-                createContentInContainer(container, 'ato.tool.compliancefamily',
-                                         id=objid, title=objtitle,
-                                         controltype=controltype)
-            transaction.commit()
+            if objid not in container.objectIds():
+                obj = createContentInContainer(container,
+                            'ato.tool.compliancefamily',
+                             id=objid)
+                transaction.savepoint(optimistic=True)
+                obj.title = objtitle
+                obj.controltype=controltype
+                transaction.commit()
+
         except IndexError:
             print " -- blank or bad line.\n -- row = %s" % ';'.join(row)
             pass
@@ -82,8 +94,7 @@ def createComplianceControls(portal):
     container = portal[ATO_FOLDER]
     norm = getUtility(IIDNormalizer)
 
-    dat = ato.tool.import_data.SP800_53_controls.csv
-    dat = open(dat, 'rb')
+    dat = CONTROLS
     reader = csv.DictReader(dat)
     headers = reader.fieldnames
     #['controlclass','controlid','controltitle','controldetail']
@@ -96,15 +107,19 @@ def createComplianceControls(portal):
         row = [x.strip() for x in row if x]
         if row:
             # assume the compliance family folders are already there
-            container = container[cfamily]
-            ids = container.objectIds()
+            cfamily = norm.normalize(cfamily)
+            fcontainer = container[cfamily]
+            ids = fcontainer.objectIds()
             # Don't want object ids like "SC-09 (1)". So, normalize.
             cid = norm.normalize(controlid)
             if cid not in ids:
                 cref = "%s - %s" % (controlid, ctitle)
-                createContentInContainer(container, 'ato.tool.compliancecontrol',
-                                    id=cid, title=ctitle, controlref=cref,
-                                    controlinfo=cdetail)
+                obj = createContentInContainer(fcontainer,
+                                'ato.tool.compliancecontrol', id=cid)
+                obj.title = ctitle
+                obj.controlref = cref
+                obj.controlinfo = cdetail
+
                 transaction.commit()
                 logger.info('-- Compliance control item %s created' %ctitle)
             else:
@@ -173,14 +188,13 @@ def importATOContent(context):
     if context.readDataFile('ato.tool.builder_various.txt') is None:
         return
     portal = api.portal.get()
-    createComplianceTracker(portal)
-    import ipdb; ipdb.set_trace()
 
+    createComplianceTracker(portal)
     createComplianceFamilyFolders(portal)
-    import ipdb; ipdb.set_trace()
+    import pdb; pdb.set_trace()
 
     createComplianceControls(portal)
-    import ipdb; ipdb.set_trace()
+    import pdb; pdb.set_trace()
 
     setTrackerFolderView(portal)
     logger.info('END: hpc.systemstatus installation complete!')
