@@ -86,6 +86,25 @@ class View(grok.View):
     grok.require('zope2.View')
 
     grok.name('view')
+
+    def controltypetitle(self):
+
+        import pdb; pdb.set_trace()
+
+        field = IComplianceFamily['controltype']
+        vocab = field.vocabulary
+
+        import pdb; pdb.set_trace()
+
+        ct = field.get(self.context)
+
+        v = getattr(self.context, ct, ct.default)
+        # if v is None:
+        #     return ''
+        # if callable(vocab):
+        #vocab = vocab(self.context)
+        return ControlTypeVocab.getTerm(v).title
+
 #
 #     def getControlTypeVocab(self):
 #         import pdb; pdb.set_trace()

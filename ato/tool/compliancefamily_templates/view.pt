@@ -31,7 +31,7 @@
       </div>
 
       <div class="familyInfo"
-           tal:content="structure view/w/controltype/render">
+           tal:content="structure view/controltypetitle">
         [[info]] view/w/controltype/render
       </div>
 
