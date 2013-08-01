@@ -7,24 +7,40 @@
       i18n:domain="ato.tool">
 <body>
 
-<metal:main fill-slot="content-core">
-  <metal:content-core define-macro="content-core">
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+        <h1 class="documentFirstHeading" tal:content="context/title" />
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
 
     <tal:comment tal:condition="nothing">
     </tal:comment>
+
+    <p class="documentDescription" tal:content="context/description" />
+    <div tal:replace="structure provider:plone.abovecontentbody" />
+    <p class="documentDescription" tal:content="context/description" />
+    <div tal:replace="structure provider:plone.abovecontentbody" />
 
 
     <div class="familyInfoWrapper">
       <h3>Control Family Info</h3>
 
       <div class="familyInfo"
-           tal:content="structure context/info/output">
+           tal:content="context/info">
         [[info]]
       </div>
 
+      <div class="familyInfo"
+           tal:content="structure view/w/controltype/render">
+        [[info]] view/w/controltype/render
+      </div>
+
+
+
     </div>
 
-  </metal:content-core>
+    <div tal:replace="structure provider:plone.belowcontentbody" />
+  </tal:main-macro>
 </metal:main>
 
 </body>
