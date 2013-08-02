@@ -7,12 +7,22 @@
       i18n:domain="ato.tool">
 <body>
 
+<metal:main fill-slot="main">
+  <tal:main-macro metal:define-macro="main">
+    <div tal:replace="structure provider:plone.abovecontenttitle" />
+    <h1 class="documentFirstHeading" tal:content="context/title" />
+    <div tal:replace="structure provider:plone.belowcontenttitle" />
+    <p class="documentDescription" tal:content="context/description" />
+    <div tal:replace="structure provider:plone.abovecontentbody" />
+    <p class="documentDescription" tal:content="context/description" />
+    <div tal:replace="structure provider:plone.abovecontentbody" />
 
-<metal:main fill-slot="content-core">
-  <metal:content-core define-macro="content-core">
-    <tal:comment tal:condition="nothing">
-      Rendered from
-      compliancetracker_templates/<span tal:replace="template/id"/>
+  <tal:comment tal:condition="nothing">
+     BEGIN infoWrapper
+  </tal:comment>
+  <div class="infoWrapper">
+
+
     <h2 class=".documentFirstTitle"
         tal:content="context/Title">[[Title inserted here]]</h2>
 
@@ -22,21 +32,19 @@
       <div tal:content="context/description">[[description]]</div>
     </div>
 
-    </tal:comment>
 
-    <div class="descriptionWrapper">
 
-      <h3>Details</h3>
+  </div>
+  <tal:comment tal:condition="nothing">
+     END infoWrapper
+  </tal:comment>
 
-      <div class="docDetails"
-           tal:content="structure context/details/raw">
-        [[details]]
-      </div>
-    </div>
 
-  </metal:content-core>
+  <div tal:replace="structure provider:plone.belowcontentbody" />
+  </tal:main-macro>
 </metal:main>
 
 </body>
 </html>
+
 

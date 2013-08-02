@@ -8,38 +8,37 @@
 <body>
 
 <metal:main fill-slot="main">
-    <tal:main-macro metal:define-macro="main">
-        <div tal:replace="structure provider:plone.abovecontenttitle" />
-        <h1 class="documentFirstHeading" tal:content="context/title" />
-        <div tal:replace="structure provider:plone.belowcontenttitle" />
-
-    <tal:comment tal:condition="nothing">
-    </tal:comment>
-
+  <tal:main-macro metal:define-macro="main">
+    <div tal:replace="structure provider:plone.abovecontenttitle" />
+    <h1 class="documentFirstHeading" tal:content="context/title" />
+    <div tal:replace="structure provider:plone.belowcontenttitle" />
     <p class="documentDescription" tal:content="context/description" />
     <div tal:replace="structure provider:plone.abovecontentbody" />
     <p class="documentDescription" tal:content="context/description" />
     <div tal:replace="structure provider:plone.abovecontentbody" />
 
+  <tal:comment tal:condition="nothing">
+     BEGIN infoWrapper
+  </tal:comment>
+  <div class="infoWrapper">
 
-    <div class="familyInfoWrapper">
-      <h3>Control Family Info</h3>
+    <h3>Control Family Info</h3>
 
-      <div class="familyInfo"
-           tal:content="context/info">
-        [[info]]
-      </div>
-
-      <div class="familyInfo"
-           tal:content="structure view/controltypetitle">
-        [[info]] view/w/controltype/render
-      </div>
-
-
-
+    <div class="familyInfo"
+         tal:content="context/info">
+      [[info]]
     </div>
 
-    <div tal:replace="structure provider:plone.belowcontentbody" />
+    <div class="familyInfo"
+        tal:content="view/controltypetitle">[Management Control]</div>
+
+  </div>
+  <tal:comment tal:condition="nothing">
+     END infoWrapper
+  </tal:comment>
+
+
+  <div tal:replace="structure provider:plone.belowcontentbody" />
   </tal:main-macro>
 </metal:main>
 
