@@ -5,7 +5,7 @@ import logging
 
 from zope.component import getUtility
 
-from plone import api
+import plone.api
 from plone.dexterity.utils import createContentInContainer
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 
@@ -157,7 +157,7 @@ def setATOFolderContentRestrictions(context):
     """Restrict addable types in ato Folder ')
     """
 
-    site = api.portal.get()
+    site = plone.api.portal.get()
     #if not 'status' in site.users.objectIds():
     #createStatusFolder(context)
     #else:
@@ -187,7 +187,7 @@ def importATOContent(context):
     logger.info('BEGIN: Import 800-53 ATO Builder content.')
     if context.readDataFile('ato.tool.builder_various.txt') is None:
         return
-    portal = api.portal.get()
+    portal = plone.api.portal.get()
 
     createComplianceTracker(portal)
     createComplianceFamilyFolders(portal)

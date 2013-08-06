@@ -28,6 +28,7 @@ setup(name='ato.tool',
           'setuptools',
           'plone.app.dexterity [grok, relations]',
           'plone.namedfile [blobs]',
+          'plone.api',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
