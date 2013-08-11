@@ -66,7 +66,7 @@ def createComplianceFamilyFolders(portal):
             controltype = row['ControlType']
             objtitle = row['ClassName']
             objid = row['ControlClass']
-            objtitle = "%s, %s" % (objid, objtitle)
+            objtitle = "%s: %s" % (objid, objtitle)
             objid = norm.normalize(objid)
             logger.info(' -- creating %s' % objid)
             if objid not in container.objectIds():
@@ -74,8 +74,10 @@ def createComplianceFamilyFolders(portal):
                             'ato.tool.compliancefamily',
                              id=objid)
                 transaction.savepoint(optimistic=True)
-                obj.title = objtitle
+                obj.setTitle(objtitle)
                 obj.controltype=controltype
+                # Make sure all persistent objects have _p_jar attribute
+                transaction.savepoint(optimistic=True)
                 transaction.commit()
 
         except IndexError:
@@ -98,6 +100,9 @@ def createComplianceControls(portal):
     reader = csv.DictReader(dat)
     headers = reader.fieldnames
     #['controlclass','controlid','controltitle','controldetail']
+
+    import pdb; pdb.set_trace()
+
     for row in reader:
         cfamily = row['controlclass']
         controlid = row['controlid']
@@ -149,8 +154,8 @@ def setTrackerFolderView(portal):
 
     portal_ids = portal.users.contentIds()
     if ATO_FOLDER in portal_ids:
-        portal.users.status.setLayout('@@SOME-view')
-        logger.info('> folder default view set to @@SOME-view')
+        portal.ato.setLayout('@@atotracker-view')
+        logger.info('> ato folder default view set to @@atotracker-view')
 
 
 def setATOFolderContentRestrictions(context):
@@ -170,7 +175,7 @@ def setATOFolderContentRestrictions(context):
 
 
 def delOldFolder(portal):
-    """ Delete the old status folder if it exists.
+    """ Delete the old ato folder if it exists.
     """
     try:
         portal.manage_delObjects([ATO_FOLDER])
@@ -191,11 +196,11 @@ def importATOContent(context):
 
     createComplianceTracker(portal)
     createComplianceFamilyFolders(portal)
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
 
     createComplianceControls(portal)
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
 
     setTrackerFolderView(portal)
-    logger.info('END: hpc.systemstatus installation complete!')
+    logger.info('>>> END: ATO content import completed!')
 
